@@ -16,7 +16,7 @@ outputQuantity = None
 
 logging.basicConfig(filename='error.log',level=logging.ERROR)
 
-st.title("Unit Converter")
+st.title("Unit Converter X")
 colU1, colU2 = st.columns([2,1])
 
 with colU1:
