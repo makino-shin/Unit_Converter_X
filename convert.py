@@ -43,11 +43,10 @@ with colU2:
         st.write(ureg(inputUnit).units)
     except pint.errors.UndefinedUnitError:
         st.warning("Undefined Unit")
-        
 
-colM1, colM2 = st.columns([2,1])
-with colM1:
-    st.markdown("<h2 style='text-align: center;'>↓</h2>", unsafe_allow_html=True)
+cont1 = st.container()
+
+
 
 colL1, colL2 = st.columns([2,1])
 with colL2:
@@ -62,15 +61,15 @@ with colL2:
 try:
     inputQuantity = inputNum * ureg(inputUnit)
     outputQuantity = inputQuantity.to(outputUnit)
+    with cont1:
+        st.markdown("<h2 style='text-align: center;'>↓</h2>", unsafe_allow_html=True)
+
     with colL1:
         st.markdown(f"<p style='text-align: center; font-size: 40px; height:100px; line-height:100px;'>{outputQuantity.magnitude}</p>", unsafe_allow_html=True)
 
 except pint.DimensionalityError:
-    with colM2:
-        st.markdown("""
-        <h3 style='text-align: center; margin-bottom: 0px;'>😕</h3>
-        <p style='text-align: center; font-size: 18px; line-height: 1; margin-top: 0px;'>↑↓Dimensional Mismatch</p>
-        """, unsafe_allow_html=True)
+    with cont1:
+        st.markdown("<p style='text-align: center; font-size: 18px; line-height: 1; margin-top: 0px;'>↑↓Dimensional Mismatch</p>", unsafe_allow_html=True)
 
     with colL1:
         st.markdown(f"<p style='text-align: center; font-size: 40px; height:100px; line-height:100px;'>🤔</p>", unsafe_allow_html=True)
