@@ -32,7 +32,7 @@ with colL1:
     #st.button("Copy", use_container_width=True)
 
 with colU1:
-    user_input = st.text_input("Input Number", value = "1.23e0", key = "number_input", label_visibility = "collapsed")
+    user_input = st.text_input("Input Number", value = "2.06e2", key = "number_input", label_visibility = "collapsed")
     formatted_input = re.sub(r'\s+', '', user_input)
 
     #st.write(formatted_input)
@@ -48,7 +48,7 @@ with colU1:
 
 with colU2:
     inputUnit = st.text_input(
-        "Unit","N/mm^2",key="input", label_visibility = "collapsed"
+        "Unit","GPa",key="input", label_visibility = "collapsed"
     )
     
     try:
