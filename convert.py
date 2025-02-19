@@ -41,7 +41,10 @@ with colU2:
     
     try:
         st.write(ureg(inputUnit).units)
+       
     except pint.errors.UndefinedUnitError:
+        st.warning("Undefined Unit")
+    except :
         st.warning("Undefined Unit")
 
 cont1 = st.container()
@@ -56,6 +59,8 @@ with colL2:
     try:
         st.write(ureg(outputUnit).units)
     except pint.errors.UndefinedUnitError:
+        st.warning("Undefined Unit")
+    except :
         st.warning("Undefined Unit")
    
 try:
