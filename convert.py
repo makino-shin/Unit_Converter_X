@@ -16,11 +16,23 @@ outputQuantity = None
 
 logging.basicConfig(filename='error.log',level=logging.ERROR)
 
+# Steamlit Layout
 st.title("Unit Converter X")
 colU1, colU2 = st.columns([2,1])
+cont1 = st.container(border=False, height=60)
+colL1, colL2 = st.columns([2,1])
+
+with colL1:
+    outputCol, buttonCol1, buttonCol2 = st.columns([4,1,1], vertical_alignment="center")
+
+#with buttonCol1:
+    #st.button("R/S", use_container_width=True)
+    
+#with buttonCol2:
+    #st.button("Copy", use_container_width=True)
 
 with colU1:
-    user_input = st.text_input("Input Number", value = "1.23e0", key = "number_input")
+    user_input = st.text_input("Input Number", value = "1.23e0", key = "number_input", label_visibility = "collapsed")
     formatted_input = re.sub(r'\s+', '', user_input)
 
     #st.write(formatted_input)
@@ -36,7 +48,7 @@ with colU1:
 
 with colU2:
     inputUnit = st.text_input(
-        "Unit","N/mm^2",key="input"
+        "Unit","N/mm^2",key="input", label_visibility = "collapsed"
     )
     
     try:
@@ -47,14 +59,11 @@ with colU2:
     except :
         st.warning("Undefined Unit")
 
-cont1 = st.container()
 
 
-
-colL1, colL2 = st.columns([2,1])
 with colL2:
     outputUnit = st.text_input(
-        "Unit","N/m^2",key="output"
+        "Unit","N/m^2",key="output", label_visibility = "collapsed"
     )
     try:
         st.write(ureg(outputUnit).units)
@@ -67,19 +76,19 @@ try:
     inputQuantity = inputNum * ureg(inputUnit)
     outputQuantity = inputQuantity.to(outputUnit)
     with cont1:
-        st.markdown("<h2 style='text-align: center;'>↓</h2>", unsafe_allow_html=True)
+        st.markdown("<p style='text-align: center; font-size: 40px; height:40px; line-height:40px;'>↓</p>", unsafe_allow_html=True)
 
-    with colL1:
-        st.markdown(f"<p style='text-align: center; font-size: 40px; height:100px; line-height:100px;'>{outputQuantity.magnitude}</p>", unsafe_allow_html=True)
+    with outputCol:
+        st.markdown(f"<p style='text-align: center; font-size: 40px; height:40px; line-height:40px;'>{outputQuantity.magnitude}</p>", unsafe_allow_html=True)
 
 except pint.DimensionalityError:
     with cont1:
-        st.markdown("<p style='text-align: center; font-size: 18px; line-height: 1; margin-top: 0px;'>↑↓Dimensional Mismatch</p>", unsafe_allow_html=True)
+        st.markdown("<p style='text-align: center; font-size: 25px; height:40px; line-height:40px;'>↑↓Dimensional Mismatch</p>", unsafe_allow_html=True)
 
-    with colL1:
-        st.markdown(f"<p style='text-align: center; font-size: 40px; height:100px; line-height:100px;'>🤔</p>", unsafe_allow_html=True)
+    with outputCol:
+        st.markdown(f"<p style='text-align: center; font-size: 40px; height:40px; line-height:40px;'>🤔</p>", unsafe_allow_html=True)
 
 except Exception as e:
     logging.error(f"Unexpected Error: {e}")
-    with colL1:
-        st.markdown(f"<p style='text-align: center; font-size: 40px; height:100px; line-height:100px;'>😵</p>", unsafe_allow_html=True)
+    with outputCol:
+        st.markdown(f"<p style='text-align: center; font-size: 40px; height:40px; line-height:40px;'>😵</p>", unsafe_allow_html=True)
