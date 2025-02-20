@@ -38,7 +38,7 @@ with colM1:
     outputCol, buttonCol = st.columns([4,1], vertical_alignment="center")
 
 with buttonCol:
-    if st.button("Std./Sci.", use_container_width=True):
+    if st.button("Std / Sci", use_container_width=True):
         if st.session_state.outputNotation == "real":
             st.session_state.outputNotation = "sci"
         else:
