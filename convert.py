@@ -10,8 +10,18 @@ def is_valid_number(s):
 # 単位レジストリを作成
 ureg = pint.UnitRegistry()
 
+#変数定義
+inputNum = None
+
+if "outputNotation" not in st.session_state:
+    st.session_state.outputNotation = "real"
+
+if "result" not in st.session_state:
+    st.session_state.result = ""
+
 inputQuantity = None
 outputQuantity = None
+
 
 # Steamlit Layout
 st.title("Unit Converter X")
@@ -27,12 +37,13 @@ colL1, colL2 = st.columns([2,1])
 with colM1:
     outputCol, buttonCol = st.columns([5,1], vertical_alignment="center")
 
-
-#変数定義
-inputNum = None
-
 with buttonCol:
-    st.button("R/S", use_container_width=True)
+    if st.button("R/S", use_container_width=True):
+        if st.session_state.outputNotation == "real":
+            st.session_state.outputNotation = "sci"
+        else:
+            st.session_state.outputNotation = "real"
+    print(st.session_state.outputNotation)
 
 with colU1:
     user_input = st.text_input("Input Number", value = "2.06e2", key = "number_input", label_visibility = "collapsed")
@@ -91,7 +102,11 @@ else:
         with cont1:
             st.markdown("<p style='text-align: center; font-size: 40px; height:40px; line-height:40px;'>↓</p>", unsafe_allow_html=True)
 
-        st.session_state.result = outputQuantity.magnitude
+        if st.session_state.outputNotation == "real":
+            st.session_state.result = f"{outputQuantity.magnitude:f}"
+        elif st.session_state.outputNotation == "sci":
+            st.session_state.result = f"{outputQuantity.magnitude:e}"
+
 
         #with outputCol:
          #   st.markdown(f"<p style='text-align: center; font-size: 40px; height:40px; line-height:40px;'>{outputQuantity.magnitude}</p>", unsafe_allow_html=True)
