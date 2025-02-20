@@ -26,6 +26,19 @@ colL1, colL2 = st.columns([2,1])
 with colL1:
     outputCol, buttonCol1, buttonCol2 = st.columns([4,1,1], vertical_alignment="center")
 
+# コピーするテキスト
+copy_text = "これ、クリップボードにコピーされるよ！"
+
+# HTMLテンプレート
+html_content = f"""
+<button onclick="navigator.clipboard.writeText('{copy_text}')">
+    コピる！
+</button>
+"""
+
+# 表示
+st.html(html_content)
+st.write(copy_text)
 #with buttonCol1:
     #st.button("R/S", use_container_width=True)
 
