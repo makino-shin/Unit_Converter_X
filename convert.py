@@ -35,7 +35,7 @@ colM1, colM2 = st.columns([2,1], vertical_alignment="center")
 colL1, colL2 = st.columns([2,1])
 
 with colM1:
-    outputCol, buttonCol = st.columns([5,1], vertical_alignment="center")
+    outputCol, buttonCol = st.columns([4,1], vertical_alignment="center")
 
 with buttonCol:
     if st.button("Std./Sci.", use_container_width=True):
