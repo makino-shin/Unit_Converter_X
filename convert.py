@@ -21,50 +21,18 @@ st.container(border=False,height=1)
 
 colU1, colU2 = st.columns([2,1])
 cont1 = st.container(border=False, height=60)
+colM1, colM2 = st.columns([2,1], vertical_alignment="center")
 colL1, colL2 = st.columns([2,1])
 
-with colL1:
-    outputCol, buttonCol1, buttonCol2 = st.columns([4,1,1], vertical_alignment="center")
+with colM1:
+    outputCol, buttonCol = st.columns([5,1], vertical_alignment="center")
 
-# コピーするテキスト
-copy_text = "これ、クリップボードにコピーされるよ！"
-
-# HTMLテンプレート
-html_content = f"""
-<button onclick="navigator.clipboard.writeText('{copy_text}')">
-    コピる！
-</button>
-"""
-
-# 表示
-st.html(html_content)
-st.write(copy_text)
-#with buttonCol1:
-    #st.button("R/S", use_container_width=True)
 
 #変数定義
 inputNum = None
 
-if "result" not in st.session_state:
-    st.session_state.result = ""
-
-copy_script = f"""
-    <script>
-    function copyToClipboard() {{
-        navigator.clipboard.writeText("copy").then(() => {{
-            alert("コピーしました！");
-        }}).catch(err => {{
-            console.error("コピーに失敗しました:", err);
-        }});
-    }}
-    </script>
-"""
-
-with buttonCol2:
-    if st.button("Copy", use_container_width=True):
-        
-        st.markdown('<script>copyToClipboard();</script>', unsafe_allow_html=True)
-        print("copy")
+with buttonCol:
+    st.button("R/S", use_container_width=True)
 
 with colU1:
     user_input = st.text_input("Input Number", value = "2.06e2", key = "number_input", label_visibility = "collapsed")
@@ -96,10 +64,12 @@ with colU2:
     except :
         st.warning("Undefined Unit")
 
-with colL2:
+with colM2:
     outputUnit = st.text_input(
         "Unit","N/m^2",key="output", label_visibility = "collapsed"
     )
+
+with colL2:    
     try:
         st.write(ureg(outputUnit).units)
     except pint.errors.UndefinedUnitError:
@@ -143,4 +113,4 @@ else:
          #   st.markdown(f"<p style='text-align: center; font-size: 40px; height:40px; line-height:40px;'>😵</p>", unsafe_allow_html=True)
 
 with outputCol:
-        st.markdown(f"<p style='text-align: center; font-size: 40px; height:40px; line-height:40px;'>{st.session_state.result}</p>", unsafe_allow_html=True)
+    st.code(st.session_state.result, language="planetext")
